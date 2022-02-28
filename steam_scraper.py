@@ -8,10 +8,7 @@ import json # /appreviews/ returns json formatted files
 
 import os 
 
-
-####################################################################
-######################### Helper Functions #########################
-####################################################################
+###############################################################################################
 
 # get game name from game ID - reverse function is also interesting
 def get_name(game_id:str) -> str:
@@ -27,7 +24,8 @@ def get_name(game_id:str) -> str:
 def url(cursor:str, game_id:str) -> str:
     # filter has to be set to 'recent' to allow for iterative run through all reviews
     # would be cleaner to add url parameters as inputs to the function w/ proper explanation
-    return f'https://store.steampowered.com/appreviews/{game_id}?json=1&date_range=all&review_type=all&filter=recent&num_per_page=100&cursor={cursor}'
+    return f'https://store.steampowered.com/appreviews/{game_id}?\
+        json=1&date_range=all&review_type=all&filter=recent&num_per_page=100&cursor={cursor}'
 
 # get data
 def get_json(cursor:str, game_id:str) -> dict:
