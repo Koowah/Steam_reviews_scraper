@@ -5,9 +5,8 @@ import pandas as pd
 
 from src.scrapper.steam_scraper import steamScrapper
 
-##########################################################################################
 
-def main(game_id: int): # game_id 678950 for DBZ FighterZ - get it from steam or steamdb
+def main(game_id: int):
     
     myScrapper = steamScrapper()
     
@@ -41,7 +40,8 @@ def main(game_id: int): # game_id 678950 for DBZ FighterZ - get it from steam or
     
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument("game_id", help="Game id according to steam", type=int, required=True)
+    parser.add_argument("game_id", help="Game id according to steam", type=int)
+    
     args = parser.parse_args()
     
     main(game_id=args.game_id)
