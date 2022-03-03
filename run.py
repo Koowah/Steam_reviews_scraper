@@ -3,6 +3,7 @@ import os
 
 import pandas as pd
 
+from src.file_logger.file_logger import fileLogger
 from src.scrapper.steam_scraper import steamScrapper
 
 
@@ -18,25 +19,9 @@ def main(game_id: int):
     df_reviews_list = [pd.DataFrame.from_dict(i['reviews']) for i in reviews_list] 
     df = pd.concat(df_reviews_list) 
     
-    current_folder = os.path.dirname(__file__)
-    
-    path_data = os.path.join(current_folder, 'data') 
-    path_data_raw = os.path.join(path_data, 'raw')
-    
-    try:
-        os.mkdir(path_data)
-    except FileExistsError:
-        print('Folder "data" already exists')
-        
-    try:
-        os.mkdir(path_data_raw)
-    except FileExistsError:
-        print('Folder "raw" already exists')
-    
-    
-    game_name = myScrapper.get_name(game_id)
-    df.to_csv(os.path.join(path_data_raw, f'{game_name}_reviews.csv'))
-
+    file_logger = fileLogger(game_id=game_id)
+    file_logger.make_folders() # create data folder and subfolders
+    file_logger.make_csv(myScrapper=myScrapper, df=df) # puts data into csv inside data/raw folder
     
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
